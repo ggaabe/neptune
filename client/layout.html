@@ -1,0 +1,213 @@
+<template name="layout">
+  <!-- The drawer is always open in large screens. The header is always shown,
+    even in small screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" id="layout">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <a href="http://localhost:3000/"><span class="mdl-layout-title">Bawro</span></a>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation. We hide it in small screens. -->
+        <nav class="mdl-navigation mdl-layout--large-screen-only" id="topnav">
+            <a  class="mdl-navigation__link"> {{>loginButtons}}</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="mdl-layout__drawer mdl-layout">
+
+
+      <a href="http://localhost:3000/"><span class="mdl-layout-title">Bawro</span></a>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="http://localhost:3000/loan"></a>
+        <a class="mdl-navigation__link" href="http://localhost:3000/borrow">Borrow</a>
+        <a class="mdl-navigation__link" href="http://localhost:3000/lend">Lend</a>
+
+
+      </nav>
+
+    </div>
+
+    <main class="mdl-layout__content">
+
+      <div class="page-content outer">{{>yield}}</div>
+
+
+
+    </main>
+  </div>
+</template>
+
+<template name="signup">
+
+  <style>
+.demo-card-square.mdl-card {
+  width: 320px;
+  height: 320px;
+}
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+  background:
+    url('https://s-media-cache-ak0.pinimg.com/736x/de/cb/52/decb52d4755812a67d39cfef1e2f77ea.jpg') bottom right 15% no-repeat #46B6AC;
+}
+</style>
+
+<div class="demo-card-square mdl-card mdl-shadow--2dp" id="inner">
+  <div class="mdl-card__title mdl-card--expand">
+    <h2 class="mdl-card__title-text">Sign in to begin!</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+    Sign in or sign up to start lending and borrowing!
+  </div>
+</div>
+</template>
+
+<template name="borrow">
+  <div class="mdl-grid">
+    {{#each availableToBorrow}}
+    <div class="mdl-cell mdl-cell--4-col">{{> item}}</div>
+  {{/each}}
+</div>
+
+</template>
+
+<template name="item">
+  <style>
+  .demo-card-square.mdl-card {
+    width: 320px;
+    height: 320px;
+  }
+  #{{_id}}.demo-card-square > .mdl-card__title {
+    color: #fff;
+    background:
+      url('{{image.url store="images"}}') bottom right 15% no-repeat #46B6AC;
+  }
+  </style>
+
+  <div class="demo-card-square mdl-card mdl-shadow--2dp" id="{{_id}}">
+    <div class="mdl-card__title mdl-card--expand">
+      <h2 class="mdl-card__title-text">{{name}}</h2>
+    </div>
+
+      <a href="/item/{{_id}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+        {{#if available}} Available for {{loanTime}} days loan.
+        {{else}}
+        <strong id="due">Due in {{loanTime}} days.</strong>
+        {{/if}}
+      </a>
+
+    <div class="mdl-card__actions mdl-card--border">
+      <a class="mdl-card__supporting-text" href="">
+       From: {{owner}}
+      </a>
+      <!-- Accent-colored raised button -->
+    {{#if available}}
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="borrow">
+      Borrow
+    </button>
+    {{else}}
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="return">
+    Return
+  </button>
+    {{/if}}
+
+
+
+    </div>
+  </div>
+</template>
+
+<template name="lend">
+
+<style>
+.demo-card-wide.mdl-card {
+width: 512px;
+}
+.demo-card-wide > .mdl-card__title {
+color: #fff;
+height: 176px;
+background: url('../assets/demos/welcome_card.jpg') center / cover;
+}
+.demo-card-wide > .mdl-card__menu {
+color: #fff;
+}
+</style>
+
+<div class="demo-card-wide mdl-card mdl-shadow--2dp" id="inner">
+<div class="mdl-card__title">
+  <h2></h2>
+</div>
+
+<div class="inner">
+<form id="test" class="new-item">
+ <h1 class="mdl-layout-title">Lend an item!</h1>
+  <div class="mdl-textfield mdl-js-textfield">
+    <h5>What is the item you are lending?</h5>
+    <input class="mdl-textfield__input" placeholder="Name of item" type="text" name="xyz" id="name" />
+  <label class="mdl-textfield__label" for="sample1"></label>
+</div>
+  <div class="mdl-textfield mdl-js-textfield">
+    <h5>How many days can your item be loaned for?</h5>
+    <input class="mdl-textfield__input" placeholder="Days available" pattern="-?[0-9]*(\.[0-9]+)?" type="text" name="abc" id="number" />
+
+    <span class="mdl-textfield__error">Input is not a number!</span>
+  </div>
+  <div class="mdl-card-wide">
+    <input class="imageInput" id="file" type="file"/>
+    <input type="submit" style="display: none;"/>
+  </div>
+</form>
+
+</div>
+
+<div class="mdl-card__actions mdl-card--border">
+
+</div>
+<div class="mdl-card__menu">
+  <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+    <i class="material-icons">share</i>
+  </button>
+</div>
+</div>
+
+</template>
+
+<template name="home">
+
+</template>
+
+<template name="dashboard">
+    <h1>Borrowed items:</h1>
+    {{>borrowed}}
+</template>
+
+<template name="register">
+    <h2>Register</h2>
+    <form class="register">
+        <p>Email: <input type="email" name="email"></p>
+        <p>Password: <input type="password" name="password"></p>
+        <p><input type="submit" value="Register"></p>
+    </form>
+</template>
+
+<template name="borrowed">
+  <div class="mdl-grid">
+    {{#each availableToBorrow}}
+    <div class="mdl-cell mdl-cell--4-col">{{> item}}</div>
+  {{/each}}
+</div>
+</template>
+
+<template name="loaned">
+
+</template>
+
+<template name="login">
+    <h2>Login</h2>
+    <form class="login">
+        <p>Email: <input type="email" name="email"></p>
+        <p>Password: <input type="password" name="password"></p>
+        <p><input type="submit" value="Login"></p>
+    </form>
+</template>

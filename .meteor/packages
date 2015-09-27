@@ -7,3 +7,13 @@
 meteor-platform
 autopublish
 insecure
+iron:router
+accounts-password
+aldeed:autoform
+materialize:materialize
+lepozepo:cloudinary
+cfs:standard-packages
+cfs:filesystem
+cfs:ejson-file
+zodiase:mdl
+accounts-ui

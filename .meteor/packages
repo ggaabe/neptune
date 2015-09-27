@@ -17,3 +17,4 @@ cfs:filesystem
 cfs:ejson-file
 zodiase:mdl
 accounts-ui
+meteorhacks:npm
